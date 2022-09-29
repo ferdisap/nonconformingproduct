@@ -1,0 +1,62 @@
+
+Recording of Non-Conforming Product
+Objective: This application can be record and display the summary of non-conforming product
+
+
+/* REQUIREMENT SCOPE */
+1. The description is limited under user and dpl topics, not engjust nor CTRE.
+
+
+/* CUSTOMER REQUIREMENT */
+1.1. Memiliki beberapa user, bertindak sebagai admin yang bisa:
+	a. memberikan otorisasi kepada user lain untuk manipulasi DPL (read/write).
+	b. ada 1 admin (dari SE, misalnya) yang memutuskan apakah DPL ini siap dipublish, dibuatkan Engjust/CTRE, atau di-cancel.
+1.2. Setiap admin memiliki beberapa bawahan. Setiap bawahan memiliki 1 orang admin.
+1.3. Setiap author, berhak untuk propose DPL di-cancel, di-CTRE, di-Engjust.
+
+2.1 Setiap user bisa memberikan komentar pada DPL.
+2.2 Setiap komentar bisa mendapatkan banyak likes.
+
+3.1 Setiap DPL hanya bisa di publish ke sesama admin.
+3.2 Admin boleh membagikan DPL kemasing-masing feed anggotanya, namun si author DPL diberikan notifikasi/pesannya.
+
+4. Setiap aktivitas pada DPL/komentarnya, baik itu di create/update/soft-delete akan menghasilkan sebuah notifikasi yang dikirim ke email iae user.
+
+
+/* REQUIREMENT INTERPRETATION */
+1.1.a. ada tingkatan/level/jabatan pada setiap user.
+1.2. Seperti didalam circle; Setiap admin hanya mampu memberikan otorisasi hanya pada bawahannya saja.
+
+2. clear
+
+3. - Ada sebuah halaman feed berisi setiap notifikasi DPL, misal DPL di-share, sudah ada Engjust, sudah ada CTRE, ada supplement baru.
+   - Notifikasi terbaru akan muncul saat author login. Notifikasi bisa berupa flash message.
+
+4. soon
+
+User level, (from bottom to top): drafter, author, admin/koordinator-admin.
+Cara kerja: 
+	1/. drafter membuat DPL: status 'draft'. 
+	2/. draft DPL diteruskan kepada author: status 'siap publish'. 
+	3/. DPL yang siap publish akan diteruskan ke adminnya dan koordinator-admin. 
+	4.1/. Admin akan cek kelengkapan DPL dan mempublish DPL: status 'published'/'cancelled'.
+	4.2/. Koordinator-admin akan menetapkan apakah DPL ini di-engjust/CTRE/Cancel: status 'published'/'force-cancelled'.
+NOTE: Jika disposisi DPL telah sedang di proses, force-cancel DPL hanya bisa dilakukan oleh koordinator-admin. 
+NOTE: Jika status DPL 'published', hanya admin yang bisa meng-cancel.
+
+drafter : mekanik
+author : QC
+admin : Engineering liaison
+koordinator-admin : Engineering representative (mas adhi)
+
+/* PROVIDER REQUIREMENT */
+1. Butuh Database User (hasMany dpl, 'user_id')(hasMany Comment, 'user_id')(hasMany childComment, 'user_id')(pub.fun commentLike{belongsToMany Comment, 'likes','user_id'}), dengan field: 'level_id', 'comment_id'
+2. Butuh Database UserLevel (hasMany User, 'level_id'), dengan field: is_DPLcreate, is_DPLread, is_DPLupdate, is_DPLdelete, is_DPLcommented, is_CommentReplied 
+3. Butuh Database dpl (hasMany Comment, 'dpl_id'), dengan field: 'user_id'
+4. Butuh Database Comment (hasMany childComment, 'comment_id')(pub.fun userLike{belongsToMany User, 'likes','comment_id'}), dengan field" 'user_id', 'dpl_id'
+5. Butuh Database childComment, dengan field: 'comment_id', 'user_id'
+6. Butuh Database likes [Intermediete table], dengan field: 'user_id','comment_id'
+
+
+
+

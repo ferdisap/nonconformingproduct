@@ -1,0 +1,71 @@
+body {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-areas: "aside" "main";
+  column-gap: 2rem;
+}
+
+aside {
+  width: fit-content;
+  /* position: sticky; */
+  /* top: 50px; */
+  grid-column: 1;
+  /* overflow: hidden; */
+}
+
+path {
+  fill: white;
+}
+#back > path {
+  fill: black;
+}
+
+.sticky {
+  position: sticky !important;
+  top: 0;
+  /* height: 100px !important; */
+}
+
+main {
+  grid-column: 2/-1;
+}
+
+/* user dashboard dpl - index */
+@media (max-width: 576px) {
+  .dpl-chart-container {
+    flex-wrap: wrap !important;
+  }
+}
+.dpl-chart-container > div {
+  border: 1px solid red;
+}
+
+/* user dashboard settings - profile */
+user-settings-profile.dump::part(native) {
+  border: 5px solid greenyellow;
+}
+
+
+.profile-photo{
+  display: flex;
+  justify-content: center;
+}
+
+.change-photo-profile {
+  height: 200px;
+  width: 150px;
+  position:absolute;
+  z-index:5;
+  display: flex;
+  align-items: flex-end;
+}
+
+#icon-change-photo-profile > g > g > path:hover {
+  fill: rgb(201, 201, 201) !important;
+  cursor: pointer;
+}
+
+.dump{
+  border: 1px solid red;
+}
+

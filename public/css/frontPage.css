@@ -1,0 +1,16 @@
+a {
+  color: black !important;
+}
+
+a:hover{
+  color: aqua !important;
+}
+
+/* .login {
+  position: fixed; 
+  background:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+
+} */
