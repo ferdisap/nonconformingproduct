@@ -13,7 +13,6 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
-        "livewire/livewire": "^2.10",
         "voku/html-min": "^4.5"
     },
     "require-dev": {

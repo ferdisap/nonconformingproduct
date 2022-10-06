@@ -40,7 +40,7 @@ import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleu
 
 import FindAndReplace from '@ckeditor/ckeditor5-find-and-replace/src/findandreplace'
 
-import CKEditorInspector from '@ckeditor/ckeditor5-inspector'
+// import CKEditorInspector from '@ckeditor/ckeditor5-inspector'
 
 export class DashboardEditor {
     targetId = undefined
@@ -266,7 +266,7 @@ export class DashboardEditor {
       })
           .then(editor => {
               console.log('Editor was initialized', editor)
-              CKEditorInspector.attach(editor)
+              // CKEditorInspector.attach(editor)
           })
           .catch(error => {
               console.error(error.stack)
@@ -274,3 +274,16 @@ export class DashboardEditor {
       
     }
 }
+
+
+// setTimeout(()=>{
+//   try {
+//     console.log('LINE-5, ini', MyEditor)
+//     Dashboard.availableScript.push('editor/editor.bundle')
+//     document.dispatchEvent(evn);
+//   } catch (e) {
+//     console.log('LINE-6, ini', MyEditor)
+//     console.log(e.stack)
+//   }
+// },100)
+

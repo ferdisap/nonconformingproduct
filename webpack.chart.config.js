@@ -7,6 +7,9 @@ const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 // const webpack = require('webpack'); //to access built-in plugins
 
 module.exports = {
+
+    mode: "production",
+
     // https://webpack.js.org/configuration/entry-context/
     entry: './resources/js/mychart.js',
     // entry: ['./resources/js/mychart.js', './resources/js/ckeditor.js'],

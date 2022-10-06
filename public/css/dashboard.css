@@ -1,8 +1,9 @@
 body {
-  display: grid;
+  /* display: grid;
   grid-template-columns: max-content 1fr;
   grid-template-areas: "aside" "main";
-  column-gap: 2rem;
+  column-gap: 2rem; */
+  overflow-x: hidden;
 }
 
 aside {
@@ -27,7 +28,8 @@ path {
 }
 
 main {
-  grid-column: 2/-1;
+  /* grid-column: 2/-1; */
+  width: 100%;
 }
 
 /* user dashboard dpl - index */

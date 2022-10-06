@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\DB;
 // use App\Http\Livewire\User\Settings\Profile;
 use App\View\Components\User\Settings\Profile;
 use Illuminate\Support\Facades\Schema;
+// use App\Http\Livewire\User\FrontPage;
+// use App\Http\Livewire\User\Dashboard;
+use App\View\Components\Dashboard\DashboardIndex;
+use App\View\Components\Home\HomeIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +34,7 @@ use Illuminate\Support\Facades\Schema;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-  return view('frontpage.front');
-  // return view('welcome');
-})->name('home');
-
+Route::get('/', [HomeIndex::class, 'render']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
@@ -44,7 +43,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/register', [LoginController::class, 'register'])->middleware('guest');
 Route::post('/register', [UserController::class, 'store'])->middleware('guest');
 
-Route::resource('/dpl', DplController::class)->middleware(['auth', 'verified']);
 
 // User Verification
 Route::get('/email/verify', [UserVerificationController::class, 'verificationNotice'])->middleware('auth', 'unverified')->name('verification.notice'); // notifikasi saat user registrasi
@@ -58,7 +56,14 @@ Route::get('/reset-password/{token}', [UserPasswordResetController::class, 'rese
 Route::post('/reset-password', [UserPasswordResetController::class, 'updatePassword'])->middleware('guest')->name('password.update');
 
 // User Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/dashboard/{subCompName}',[DashboardIndex::class, 'preRender'])->middleware('auth');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
+// Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth']); // fetching view, dipakai juga oleh livewire pagination (otomatis)
+// Route::get('/dashboard/{component}', [DashboardController::class, 'content'])->middleware(['auth']); // fetching view, dipakai juga oleh livewire pagination (otomatis)
+// Route::get('/dashboard/{component}', [Dashboard::class, 'render'])->middleware(['auth']); // fetching view, dipakai juga oleh livewire pagination (otomatis)
+
+
+// Route::resource('/dpl', DplController::class)->middleware(['auth', 'verified']);
 
 // contoh untuk mendapatkan label X dan Y untuk dpl chart (routing ini tidak dipakai)
 Route::get('/dpl-chart', function () {
@@ -110,17 +115,24 @@ Route::get('/datetime/dpl', function () {
   // return $labelY = $grouped->all();
 });
 
-// contoh fetching view
-Route::get('/view/{component}', function ($component) {
-  try {
-    $name = str_replace('-', '.', $component);
-    $response = new HtmlMin();
-    return $response->minify(view('livewire.' . $name));
-    // return view('livewire.' . $name );
-  } catch (\Throwable $th) {
-    return null;
-  }
-});
+// fetching view, dipakai juga oleh livewire pagination (otomatis)
+// Route::get('/dashboard/{component}', function ($component) {
+//   try {
+//     $name = str_replace('-', '.', $component);
+//     $response = new HtmlMin();
+
+//     //berhasil
+//     // return $response->minify(view('livewire.' . $name));
+
+//     $view = new App\Http\Livewire\User\Dpls\Index;
+//     return $response->minify($view->render());
+//     // return view('livewire.' . $name );
+//   } catch (\Throwable $th) {
+//     return null;
+//   }
+// });
+
+
 
 // contoh request data dashboard-content
 Route::get('/dashboard-content', function (Request $request) {

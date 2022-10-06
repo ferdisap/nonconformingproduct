@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\View\Components\Login\Login;
+use App\View\Components\Login\Register;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
@@ -15,7 +17,8 @@ class LoginController extends Controller
    */
   public function index()
   {
-    return view('login.login');
+    $view = new Login();
+    return $view->render();
   }
 
   public function authenticate(Request $request)
@@ -45,6 +48,7 @@ class LoginController extends Controller
 
   public function register()
   {
-    return view('login.registration');
+    $view = new Register();
+    return $view->render();
   }
 }

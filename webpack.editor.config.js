@@ -8,18 +8,21 @@ const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 module.exports = {
 
-    mode: 'development',
+    mode: 'production',
 
     // https://webpack.js.org/configuration/entry-context/
     entry: './resources/js/myeditor.js',
-    // entry: ['./resources/js/mychart.js', './resources/js/ckeditor.js'],
+    // entry: './resources/js/contoh.js',
 
     // https://webpack.js.org/configuration/output/
     output: {
         path: path.resolve( __dirname + '/public/js', 'editor' ),
-        // path: path.resolve( __dirname + '/public/js', 'ckeditor' ),
         filename: 'editor.bundle.js',
         library: 'MyEditor'
+
+        // path: path.resolve( __dirname + '/public/js'),
+        // filename: 'contohScript123.js',
+        // library: 'ContohScript'
     },
 
     module: {
