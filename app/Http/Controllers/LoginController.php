@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\View\Components\Login\Login;
-use App\View\Components\Login\Register;
+use App\View\Components\User\Login\Login;
+use App\View\Components\User\Login\Register;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;

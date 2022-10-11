@@ -109,15 +109,21 @@ const Dashboard = {
      */
 
     async showContent (componentName) {
-        window.event.preventDefault()
-        let scriptName = arguments[1] ?? false
-        console.log('scriptnya adalah: ', scriptName)
+        window.event.preventDefault();
+        
+        let scripts = [];
+        for(const el of arguments){
+          // console.log(el)
+          if (el.endsWith(".js")){
+            scripts.push(el)
+          }
+        }
 
         let name = componentName.split('-').join('') // output = string for object dashboard key
         this[name]
             ? new Promise(resolve =>
                   // resolve(this.renderTemplate(name, componentName, scriptName))
-                  resolve(this.renderTemplate(name, componentName, scriptName))
+                  resolve(this.renderTemplate(name, componentName, scripts))
               ).then(() => {
                   history.pushState({}, '', '/dashboard/' + componentName) // pelajari lagi soal parameter pertama dan kedua function ini
 
@@ -126,11 +132,14 @@ const Dashboard = {
 
                   this.renderEditor(componentName)
                   console.log('render editor success')
+
+                  // this.renderScript(this.availableScript[name])
+
               })
             : new Promise(resolve => resolve(this.xhr(name, componentName)))
                   .then(() => {
                       Promise.resolve(
-                          this.renderTemplate(name, componentName, scriptName)
+                          this.renderTemplate(name, componentName, scripts)
                       )
                   })
                   .then(() => {
@@ -141,56 +150,9 @@ const Dashboard = {
 
                       this.renderEditor(componentName)
                       console.log('render editor success')
-                      // console.log('LINE-3, ini', this.availableScript.includes(scriptName)) //true
-                      // setTimeout(()=>{
-                      // console.log('LINE-4, ini', MyEditor)
-                      // },5)
 
-                      // if (!this.availableScript.includes(scriptName)) {
-                      //     document.addEventListener('charteditorStarted', e => {
-                      //         this.renderChart(componentName)
-                      //         console.log('render chart success')
-
-                      //         this.renderEditor(componentName)
-                      //         console.log('render editor success')
-                      //     })
-                      // } else {
-                      //     this.renderChart(componentName)
-                      //     console.log('render chart success')
-
-                      //     this.renderEditor(componentName)
-                      //     console.log('render editor success')
-                      // }
+                      // this.renderScript(this.availableScript[name])
                   })
-        // : new Promise(resolve =>
-        //       resolve(this.xhr(name, componentName))
-        //   ).then(() => {
-        //       this.renderTemplate(name, componentName, scriptName)
-
-        //       history.pushState({}, '', '/dashboard/' + componentName) // pelajari lagi soal parameter pertama dan kedua function ini
-
-        //       // console.log('LINE-3, ini', this.availableScript.includes(scriptName)) //true
-        //       console.log('LINE-3, ini', MyEditor)
-
-        //       if (!this.availableScript.includes(scriptName)){
-        //         document.addEventListener('charteditorStarted', (e) => {
-
-        //           this.renderChart(componentName)
-        //           console.log('render chart success')
-
-        //           this.renderEditor(componentName)
-        //           console.log('render editor success')
-        //         })
-        //       }
-        //       else {
-        //         this.renderChart(componentName)
-        //           console.log('render chart success')
-
-        //           this.renderEditor(componentName)
-        //           console.log('render editor success')
-        //       }
-
-        //   })
     },
 
     /**
@@ -199,9 +161,10 @@ const Dashboard = {
      * @param {componentName} is the string for livewire templating render, ex: user-settings-profile. That string is must available in livewire package view in application
      */
     async xhr (name, componentName) {
-        let getUrl = await fetch('/dashboard/' + componentName + '?ajax=true')
-        let result = await getUrl.text()
-        this[name] = result
+        let getUrl = await fetch('/dashboard/' + componentName + '?ajax=true');
+        let result = await getUrl.text();
+        this[name] = result;
+        // this.runningScriptFromEval(result);
     },
 
     /**
@@ -209,7 +172,7 @@ const Dashboard = {
      * @param {name} is the property (string) which containe the html tag to be render later.
      * @param {componentName} is the string for livewire templating render, ex: user-settings-profile. That string is must available in livewire package view in application
      */
-    renderTemplate (name, componentName, scriptName) {
+    renderTemplate (name, componentName, scripts) {
         this.previousContent.name = this.currentContent.name
         this.previousContent.componentName = this.currentContent.componentName
 
@@ -220,8 +183,8 @@ const Dashboard = {
         div.innerHTML = this.createComponent(name, componentName)
 
         content.appendChild(div)
-        if (scriptName) {
-            this.renderScript(scriptName)
+        if (scripts) {
+          scripts.forEach((script) => this.renderScript(script))      
             // if (!this.availableScript.includes(scriptName)){
             // }
         }
@@ -230,24 +193,16 @@ const Dashboard = {
         this.currentContent.componentName = componentName
     },
 
-    /**
-     * htmlToElement(html, id) is the function to create <template> and add the inner by html params
-     * @param {html} is string contains html tag
-     */
-    // htmlToElement (html, id) {
-    //     let template = document.createElement('template')
-    //     // html = html.trim(); // Never return a text node of whitespace as the result
-    //     template.id = id
-    //     template.innerHTML = html
-    //     return template
-    // },
-
     renderEditor (componentName) {
-        let target = undefined
-        try {
-            target = document.querySelectorAll("div[editor='false']")
-        } catch (e) {
-            console.log(e)
+        // let target = undefined
+        // try {
+        //     target = document.querySelectorAll("div[editor='false']")
+        // } catch (e) {
+        //     console.log(e)
+        // }
+        let target = document.querySelectorAll("div[editor='false']")
+        if (!target.length){
+          return false;
         }
 
         this.editor = this.editor || {}
@@ -277,6 +232,9 @@ const Dashboard = {
     renderChart (componentName) {
         // console.log('renderChart() function is running');
         let canvas = document.querySelectorAll("canvas[chart='false']")
+        if (!canvas.length){
+          return false;
+        }
         this.chart = { chartDump: null } // harus di instansiasi dulu properti chart karena kita mau pakai forEach dibawah
 
         canvas.forEach((element, index) => {
@@ -316,23 +274,26 @@ const Dashboard = {
             // }, 0)
         })
         // console.log('renderChart() function has completed')
+        let evn = new Event('chart-started')
+        window.chartEvent = document.dispatchEvent(evn)
+        // console.log("eventnya adalah:" ,evn)
     },
 
     renderScript (scriptName) {
         console.log(scriptName + ' is running')
         if (scriptName) {
-            // console.log(this.availableScript.includes(scriptName))
-            // console.log('editor: ' , MyEditor )
-
-            if (!this.availableScript.includes(scriptName)) {
-                const script = document.createElement('script')
-                // script.type = 'module';
-                script.src =
-                    window.location.origin + '/js/' + scriptName + '.js'
-                document.querySelector('#content').appendChild(script)
-                this.availableScript.push(scriptName)
-                // console.log('LINE-2, ini', this.availableScript.includes(scriptName)) //true
-            }
+            const script = document.createElement('script')
+            script.src = window.location.origin + '/js/' + scriptName;
+            document.querySelector('#content').appendChild(script)
+            // if (!this.availableScript.includes(scriptName)) {
+            //     const script = document.createElement('script')
+            //     // script.type = 'module';
+            //     script.src =
+            //         window.location.origin + '/js/' + scriptName + '.js'
+            //     document.querySelector('#content').appendChild(script)
+            //     this.availableScript.push(scriptName)
+            //     // console.log('LINE-2, ini', this.availableScript.includes(scriptName)) //true
+            // }
         }
     },
 
@@ -341,29 +302,30 @@ const Dashboard = {
      */
     createComponent (name, componentName) {
         let component = document.createElement(componentName)
-        console.log(component)
+        // console.log(component)
         return this[name] ? (component.innerHTML = this[name]) : component
-    }
+    },
 
-    // previous content, supaya bisa balik ke halaman sebelumnya
-    // getPreviousContent (component) {
-    //     let name = this.previousContent.name || component.split('-').join('');
-    //     let componentName = this.previousContent.componentName || component;
-    //     // console.log(name + "||" , componentName);
-    //     // this.renderTemplate(name, componentName, '')
-    //     // this[name]
-    //     new Promise(resolve => resolve(this.xhr(name, componentName))).then(
-    //         () => {
-    //             this.renderTemplate(name, componentName, '')
+    // runing script jika pakai fungsi xhr untuk menampilkan view
+    // runningScriptFromEval (name, text) {
+    //     var scripts = new Array()
+    //     while (text.indexOf('<script') > -1 || text.indexOf('</script') > -1) {
+    //         var s = text.indexOf('<script')
+    //         var s_e = text.indexOf('>', s)
+    //         var e = text.indexOf('</script', s)
+    //         var e_e = text.indexOf('>', e)
 
-    //             history.pushState({}, '', '/dashboard/' + componentName) // pelajari lagi soal parameter pertama dan kedua function ini
+    //         // Add to scripts array
+    //         scripts.push(text.substring(s_e + 1, e))
+    //         // Strip from text
+    //         text = text.substring(0, s) + text.substring(e_e + 1)
 
-    //             this.renderChart(componentName)
-    //             console.log('render chart success')
-
-    //             this.renderEditor(componentName)
-    //             console.log('render editor success')
-    //         }
-    //     )
+    //         // console.log(text);
+    //         // console.log(scripts[0]);
+    //     }
+    //     // console.log("running script from eval",scripts);
+    //     // scripts.forEach(script => window.eval(script))// window : agar fungsi bisa di declare pakai eval
+    //     scripts.forEach(script => this.availableScript.push(script))
+    //     // return scripts;
     // }
 }

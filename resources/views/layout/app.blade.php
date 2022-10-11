@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="{{ url('css/nonconformingproduct.css') }}">
 
   <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
-  <script>
+  {{-- <script>
     const evn = new Event('charteditorStarted');
-  </script>
+  </script> --}}
 
   <title>Document</title>
 </head>

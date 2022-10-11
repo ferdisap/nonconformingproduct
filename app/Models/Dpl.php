@@ -9,11 +9,23 @@ class Dpl extends Model
 {
     use HasFactory;
 
-    // protected $primaryKey = "noDPL";
-    protected $guarded = ['noDPL'];
+    protected $primaryKey = "noDPL";
+    // protected $primaryKey = "id";
+    // protected $primaryKey = "slug";
+    protected $guarded = ['id'];
 
     public function creator()
     {
       return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function category()
+    {
+      return $this->belongsTo(DplCategory::class, 'category_id');
+    }
+
+    public function getRouteKeyName()
+    {
+      return 'noDPL';
     }
 }

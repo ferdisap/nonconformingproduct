@@ -9,7 +9,7 @@
     "build-chart": "webpack --config webpack.chart.config.js",
     "build-editor": "webpack --config webpack.editor.config.js",
     "build-icon": "webpack --config webpack.icon.config.js",
-    "build-sass": "webpack --config webpack.sass.config.js"
+    "build-style": "webpack --config webpack.sass.config.js"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-find-and-replace": "^35.2.0",

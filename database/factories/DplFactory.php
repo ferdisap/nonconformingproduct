@@ -30,13 +30,17 @@ class DplFactory extends Factory
    */
   public function definition()
   {
-    $data = str_replace('-','',substr(today(),0,10));
+    $data = substr(str_replace('-','',substr(today(),0,10)),2); //20221009 menjadi 221009
     return [
-      'noDPL' =>  $data . '_' . $this->faker->unique()->numberBetween(100,9999),
+      // 'id' => $this->faker->unique()->numberBetween(0,99999),
+      // 'slug' => $this->faker->unique()->lexify(),
+      'noDPL' =>  $data . $this->faker->unique()->numberBetween(0,9999),
+      // 'noDPL' =>  $this->faker->unique()->lexify(),
       'discrepancy' => $this->faker->paragraph(3),
       'disposition' => $this->faker->paragraph((3)),
       'drawing' => '114ND10004-001',
       'creator_id' => random_int(1,10),
+      'category_id' => random_int(1,3),
       'published_at' => $this->dateTime(),
     ];
   }

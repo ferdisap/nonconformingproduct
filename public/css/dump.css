@@ -1,3 +1,9 @@
-.dump {
+.dump_red {
   border: 2px solid red;
+}
+.dump_blue {
+  border: 5px solid rgb(0, 102, 255);
+}
+.dump_green {
+  border: 2px solid rgb(0, 255, 64);
 }

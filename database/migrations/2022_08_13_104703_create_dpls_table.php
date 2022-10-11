@@ -21,7 +21,8 @@ return new class extends Migration
       $table->text('disposition');
       $table->string('drawing');
       $table->integer('creator_id'); // user id = dpl_id
-      // $table->timestamps('published_at');
+      $table->integer('category_id');
+      $table->timestamp('published_at', $precision = 0)->nullable();
       $table->timestamps();
     });
   }

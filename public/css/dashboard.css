@@ -1,73 +1,106 @@
 body {
-  /* display: grid;
+    /* display: grid;
   grid-template-columns: max-content 1fr;
   grid-template-areas: "aside" "main";
   column-gap: 2rem; */
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 aside {
-  width: fit-content;
-  /* position: sticky; */
-  /* top: 50px; */
-  grid-column: 1;
-  /* overflow: hidden; */
+    width: fit-content;
+    /* position: sticky; */
+    /* top: 50px; */
+    grid-column: 1;
+    /* overflow: hidden; */
 }
 
 path {
-  fill: white;
+    fill: white;
 }
 #back > path {
-  fill: black;
+    fill: black;
 }
 
 .sticky {
-  position: sticky !important;
-  top: 0;
-  /* height: 100px !important; */
+    position: sticky !important;
+    top: 0;
+    /* height: 100px !important; */
 }
 
 main {
-  /* grid-column: 2/-1; */
-  width: 100%;
+    /* grid-column: 2/-1; */
+    width: 100%;
 }
 
 /* user dashboard dpl - index */
-@media (max-width: 576px) {
-  .dpl-chart-container {
-    flex-wrap: wrap !important;
+/* @media (max-width: 992px) {
+    .dpl-chart-container {
+        flex-wrap: wrap !important;
+    }
+} */
+
+@media(min-width: 992px){
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+  }
+  .dump_yellow{
+    border: 2px solid yellow;
   }
 }
-.dpl-chart-container > div {
-  border: 1px solid red;
-}
+
+/* .dpl-chart-container > div {
+    border: 1px solid red;
+} */
 
 /* user dashboard settings - profile */
 user-settings-profile.dump::part(native) {
-  border: 5px solid greenyellow;
+    border: 5px solid greenyellow;
 }
 
-
-.profile-photo{
-  display: flex;
-  justify-content: center;
+.profile-photo {
+    display: flex;
+    justify-content: center;
 }
 
 .change-photo-profile {
-  height: 200px;
-  width: 150px;
-  position:absolute;
-  z-index:5;
-  display: flex;
-  align-items: flex-end;
+    height: 200px;
+    width: 150px;
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    align-items: flex-end;
 }
 
 #icon-change-photo-profile > g > g > path:hover {
-  fill: rgb(201, 201, 201) !important;
-  cursor: pointer;
+    fill: rgb(201, 201, 201) !important;
+    cursor: pointer;
 }
 
-.dump{
-  border: 1px solid red;
+/* @media (max-width: 1250px) { */
+/* @media (max-width: 992px) {
+    .vertical-center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        width: 100%;
+    }
+    .dump_yellow{
+      border: 2px solid yellow;
+    }
+} */
+
+:root {
+    --height-carousel: 168px;
 }
 
+/* .dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;  remove the gap so it doesn't close
+} */

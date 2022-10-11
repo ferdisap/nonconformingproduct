@@ -10,7 +10,6 @@ $marron : rgb(161, 0, 0);
 $primary: #3C77BC;
 $accordion-border-radius: 2rem;
 
-
 $accordion-bg: rgb(255, 255, 255);
 // $accordion-button-active-bg: rgb(112, 112, 112);
 $accordion-button-active-bg: $primary;
@@ -19,6 +18,8 @@ $accordion-button-bg: $primary;
 $accordion-active-color: rgb(255, 255, 255);
 $accordion-button-color: rgb(255, 255, 255);
 $accordion-button-active-color: rgb(255, 255, 255);
+$enable-cssgrid: true;
+
 
 
 
@@ -57,7 +58,10 @@ $accordion-button-active-color: rgb(255, 255, 255);
 @import "../../node_modules/bootstrap/scss/badge";
 @import "../../node_modules/bootstrap/scss/tables";
 @import "../../node_modules/bootstrap/scss/pagination";
+@import "../../node_modules/bootstrap/scss/navbar";
+@import "../../node_modules/bootstrap/scss/carousel";
 // @import "../../node_modules/bootstrap/scss/popover";
+// @import "../../node_modules/bootstrap/scss/tooltip";
 
 //original
 // @import "../../node_modules/bootstrap/scss/reboot";
@@ -98,4 +102,12 @@ $accordion-button-active-color: rgb(255, 255, 255);
 // 8. Add additional custom code here
 a.danger {
   color: $marron;
+}
+:root {
+  --bs-rows: 2;
+  --bs-columns: 2;
+  --bs-gap: 0.5rem;
+}
+.bg-none {
+  background: none !important;
 }

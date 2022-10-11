@@ -11,18 +11,19 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPasswordResetController;
 use App\Http\Controllers\UserVerificationController;
-use App\Http\Controllers\DplController;
+// use App\Http\Controllers\DplController;
 use App\Models\User;
 use App\Models\Dpl;
-use voku\helper\HtmlMin;
+// use voku\helper\HtmlMin;
 use Illuminate\Support\Facades\DB;
 // use App\Http\Livewire\User\Settings\Profile;
-use App\View\Components\User\Settings\Profile;
+// use App\View\Components\User\Dashboard\Settings\Profile;
 use Illuminate\Support\Facades\Schema;
 // use App\Http\Livewire\User\FrontPage;
 // use App\Http\Livewire\User\Dashboard;
-use App\View\Components\Dashboard\DashboardIndex;
-use App\View\Components\Home\HomeIndex;
+use App\View\Components\User\Home\HomeIndex;
+// use App\Models\DplCategory;
+use App\View\Components\User\Dashboard\DashboardIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,19 @@ Route::get('/reset-password/{token}', [UserPasswordResetController::class, 'rese
 Route::post('/reset-password', [UserPasswordResetController::class, 'updatePassword'])->middleware('guest')->name('password.update');
 
 // User Dashboard
-Route::get('/dashboard/{subCompName}',[DashboardIndex::class, 'preRender'])->middleware('auth');
+// Route::resource('/dashboard/dpl', DplController::class);
+// Route::get('/dashboard/{subCompName}',[DashboardIndex::class, 'preRender'])->middleware('auth');
+Route::get('/dashboard/{subCompName}/{detailLog}',[DashboardIndex::class, 'preRender'])->middleware('auth');
+
+
+
+
+// DI BAWAH INI ADALAH UNTUK CONTOH
+Route::get('/test-dplcategory', function(){
+  // return DplCategory::all();
+  return Dpl::find(1)->category;
+  // return 'test';
+});
 // Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
 // Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth']); // fetching view, dipakai juga oleh livewire pagination (otomatis)
 // Route::get('/dashboard/{component}', [DashboardController::class, 'content'])->middleware(['auth']); // fetching view, dipakai juga oleh livewire pagination (otomatis)
