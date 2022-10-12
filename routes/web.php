@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DplController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPasswordResetController;
@@ -57,9 +58,18 @@ Route::get('/reset-password/{token}', [UserPasswordResetController::class, 'rese
 Route::post('/reset-password', [UserPasswordResetController::class, 'updatePassword'])->middleware('guest')->name('password.update');
 
 // User Dashboard
-// Route::resource('/dashboard/dpl', DplController::class);
-// Route::get('/dashboard/{subCompName}',[DashboardIndex::class, 'preRender'])->middleware('auth');
-Route::get('/dashboard/{subCompName}/{detailLog}',[DashboardIndex::class, 'preRender'])->middleware('auth');
+Route::get('/dashboard/{subCompName}',[DashboardIndex::class, 'preRender'])->middleware('auth');
+Route::resource('/dashboard/dpls-index', DplController::class)->except(['index'])->parameters(['dpls-index' => 'noDPL'])->middleware('auth'); //method index di override oleh DashboardIndex::class, 'preRender'
+Route::resource('/dashboard/users-profile', UserController::class)->except(['index'])->middleware('auth'); //view form input nya sudah di override oleh DashboardIndex::class, 'preRender'
+Route::put('/dashboard/users-unmpwd/{primaryKey}', [UserController::class, 'update_unmpwdOnly'])->middleware('auth'); //view form input nya sudah di override oleh DashboardIndex::class, 'preRender'
+
+
+// Route::controller(UserController::class)->group(function () {
+//   // Route::put('/dashboard/users-profile/{primaryKey}', 'update_profile')->middleware('auth'); //view form input nya sudah di override oleh DashboardIndex::class, 'preRender'
+//   Route::put('/dashboard/users-unmpwd/{primaryKey}', 'update_unmpwdOnly')->middleware('auth'); // view from inputnya sudah di override oleh DashboardIndex::class, 'preRender'
+//   // nanti tambahkan untuk method POST/PUT/PATCH
+// }); // method index di override oleh DashboardIndex::class, 'preRender'
+
 
 
 

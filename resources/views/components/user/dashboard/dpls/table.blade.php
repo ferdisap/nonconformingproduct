@@ -16,7 +16,7 @@
         <tbody class="table-group-divider">
           @foreach ($dpls as $dpl)
             <tr>
-              <th scope="row"><a href="dpls-index/{{ $dpl->noDPL }}" class="text-decoration-none">{{ $dpl->noDPL }}</a></th>
+              <th scope="row"><a href="dpls-index/{{ $dpl->noDPL }}" class="text-decoration-none" onclick="showDetailModel({{ $dpl->noDPL }})">{{ $dpl->noDPL }}</a></th>
               <td>{{ Str::limit($dpl->discrepancy, 50) }}</td>
               <td>{{ Str::limit($dpl->disposition, 50) }}</td>
               <td>{{ $dpl->category->code}}</td>
@@ -36,6 +36,7 @@
   </div>
 
 
-  <script src="{{ url('/table/getPage.js') }}"></script>
+  <script src="{{ url('/js/table/getPage.js') }}"></script>
+  <script src="{{ url('/js/dashboard/showDetailModel.js') }}"></script>
 
 </div>

@@ -19,7 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+      // return route()
+      return 'fooIndex';
     }
 
     /**
@@ -29,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+      return 'fooCreate';
     }
 
     /**
@@ -102,7 +103,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+      return 'fooShow';
     }
 
     /**
@@ -137,5 +138,17 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * Update the usrname or pwd or both only
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update_unmpwdOnly(User $primaryKey)
+    {
+      return $primaryKey;
+      // return "foo update unm pwd only";
     }
 }

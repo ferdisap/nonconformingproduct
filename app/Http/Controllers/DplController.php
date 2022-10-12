@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dpl;
+use App\View\Components\User\Dashboard\DashboardIndex;
+use App\View\Components\User\Dashboard\Dpls\Show;
 use DateTime;
 
 class DplController extends Controller
 {
+
+  public $model = 'Dpl';
+  public $compName = 'Index'; // Index ini diambil dari current urlnya, dashboard/"dpls-index"/{}
+
   // public $view = view('components.user.dashboard.dpls.index');
 
   /**
@@ -17,7 +23,7 @@ class DplController extends Controller
    */
   public function index()
   {
-    
+    return 'foobar';
   }
 
   /**
@@ -47,16 +53,25 @@ class DplController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($noDPL)
+  public function show(Dpl $noDPL)
   {
-    // return var_dump($noDPL);
-    // $dpl = Dpl::findOrFail('202210109622');
-    // $dpl = Dpl::find(2);
-    return $noDPL;
+    $view = new DashboardIndex();
+    $view->model['className'] = $this->model;
 
-    // return 'foo/bar: '; 
-    // return dd($noDPL);
-    return view('components.dashboard.user.dpls.detail');
+    if (request()->ajax()){
+      $view->isAsync = true;
+      $this->compName = 'Show';
+      $view->subCompName['className'] = $this->compName;
+      return $view->render();
+    }
+
+    $componentName = 'components-user-dashboard-dpls-show'; //will be render into dashboard content
+    $view->subCompName['className'] = $this->compName;
+    $view->subCompName['componentNameForContent'] = $componentName;
+    return $view->render();
+
+
+    // return view('components.dashboard.user.dpls.detail');
   }
 
   /**

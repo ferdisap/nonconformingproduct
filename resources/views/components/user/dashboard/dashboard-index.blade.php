@@ -189,15 +189,15 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
           <li>
-            {{-- <button onclick="myContent('user-settings-profile')" class="nav-link text-white"> --}}
-            <a href="/dashboard/settings-profile" onclick="Dashboard.showContent('settings-profile')"
+            {{-- <button onclick="myContent('user-users-profile')" class="nav-link text-white"> --}}
+            <a href="/dashboard/users-profile" onclick="Dashboard.showContent('users-profile')"
               class="nav-link text-white">
               <svg class="bi pe-none me-2" width="16" height="16">
                 <use xlink:href="#people-circle" />
               </svg>
               Profile
             </a>
-            <a href="/dashboard/settings-unmpwd" onclick="Dashboard.showContent('settings-unmpwd')"
+            <a href="/dashboard/users-unmpwd" onclick="Dashboard.showContent('users-unmpwd')"
               class="nav-link text-white">
               <svg class="bi pe-none me-2" width="16" height="16">
                 <use xlink:href="#tools" />
@@ -227,6 +227,7 @@
     <main class="d-flex flex-row justify-content-center">
       <div id="content" class="px-2" style="width: 100%">
         <x-dynamic-component :component="$componentName" class="mt-4" />
+        {{-- <x-components-user-dashboard-dpls-show/> --}}
       </div>
 
     </main>

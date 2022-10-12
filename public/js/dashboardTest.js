@@ -161,7 +161,11 @@ const Dashboard = {
      * @param {componentName} is the string for livewire templating render, ex: user-settings-profile. That string is must available in livewire package view in application
      */
     async xhr (name, componentName) {
-        let getUrl = await fetch('/dashboard/' + componentName + '?ajax=true');
+        let getUrl = await fetch('/dashboard/' + componentName, {
+          headers:{
+            'X-Requested-With': 'XMLHttpRequest', //method request()->ajax() akan return true. Valunya harus XMLHttpReqeust, source marcusmoore comment on https://github.com/laravel/nova-issues/issues/323, jika X-CSRF-TOKEN: document.head.querySelector('meta[name="csrf-token"]').content
+          },
+        });
         let result = await getUrl.text();
         this[name] = result;
         // this.runningScriptFromEval(result);

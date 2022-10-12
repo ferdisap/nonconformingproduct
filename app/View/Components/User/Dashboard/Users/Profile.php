@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\User\Dashboard\Settings;
+namespace App\View\Components\User\Dashboard\Users;
 
 use Illuminate\View\Component;
 
@@ -23,6 +23,6 @@ class Profile extends Component
      */
     public function render()
     {
-        return view('components.user.dashboard.settings.profile');
+        return view('components.user.dashboard.users.profile');
     }
 }
