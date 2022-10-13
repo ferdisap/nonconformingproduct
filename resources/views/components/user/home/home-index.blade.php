@@ -28,14 +28,14 @@
         <div class="p-3"><h1>PTDI Non-Conforming-Product</h1></div>
 
         <div class="d-flex flex-wrap">
-          <div class="dump_x col-md-6 p-2">
+          <div class="col-md-6 p-2">
             <a href="/dpl" class="text-decoration-none">
               <h5>DPL</h5>
               <hr class="hr">
               <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eius, facere inventore exercitationem cumque quae minus doloribus quod? Necessitatibus odit inventore aliquam aut dolorem vitae commodi recusandae nihil, maxime explicabo atque optio aperiam quis, et rerum nesciunt mollitia ipsam repellendus aliquid totam quibusdam iste! Rem aperiam exercitationem excepturi fugit sapiente blanditiis nihil nulla, voluptate voluptatum voluptas voluptates earum doloribus hic minima aliquid non deserunt officia ea quod dolore, incidunt perspiciatis rerum a quam. At, aspernatur consequuntur illum voluptate deleniti harum optio culpa nam fugiat, laborum rerum? Alias nemo minus reiciendis earum voluptas consectetur commodi consequatur et, quod ex. Omnis, suscipit.</p>
             </a>
           </div>
-          <div class="dump_x col-md-6 p-2">
+          <div class="col-md-6 p-2">
             <h5>Proccess sheet</h5>
             <hr class="hr">
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eius, facere inventore exercitationem cumque quae minus doloribus quod? Necessitatibus odit inventore aliquam aut dolorem vitae commodi recusandae nihil, maxime explicabo atque optio aperiam quis, et rerum nesciunt mollitia ipsam repellendus aliquid totam quibusdam iste! Rem aperiam exercitationem excepturi fugit sapiente blanditiis nihil nulla, voluptate voluptatum voluptas voluptates earum doloribus hic minima aliquid non deserunt officia ea quod dolore, incidunt perspiciatis rerum a quam. At, aspernatur consequuntur illum voluptate deleniti harum optio culpa nam fugiat, laborum rerum? Alias nemo minus reiciendis earum voluptas consectetur commodi consequatur et, quod ex. Omnis, suscipit.</p>
@@ -43,12 +43,12 @@
         </div>
 
         <div class="d-flex flex-wrap">
-          <div class="dump_x col-md-6 p-2">
+          <div class="col-md-6 p-2">
             <h5>Engineering Justification</h5>
             <hr class="hr">
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eius, facere inventore exercitationem cumque quae minus doloribus quod? Necessitatibus odit inventore aliquam aut dolorem vitae commodi recusandae nihil, maxime explicabo atque optio aperiam quis, et rerum nesciunt mollitia ipsam repellendus aliquid totam quibusdam iste! Rem aperiam exercitationem excepturi fugit sapiente blanditiis nihil nulla, voluptate voluptatum voluptas voluptates earum doloribus hic minima aliquid non deserunt officia ea quod dolore, incidunt perspiciatis rerum a quam. At, aspernatur consequuntur illum voluptate deleniti harum optio culpa nam fugiat, laborum rerum? Alias nemo minus reiciendis earum voluptas consectetur commodi consequatur et, quod ex. Omnis, suscipit.</p>
           </div>
-          <div class="dump_x col-md-6 p-2">
+          <div class="col-md-6 p-2">
             <h5>CTRE</h5>
             <hr class="hr">
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eius, facere inventore exercitationem cumque quae minus doloribus quod? Necessitatibus odit inventore aliquam aut dolorem vitae commodi recusandae nihil, maxime explicabo atque optio aperiam quis, et rerum nesciunt mollitia ipsam repellendus aliquid totam quibusdam iste! Rem aperiam exercitationem excepturi fugit sapiente blanditiis nihil nulla, voluptate voluptatum voluptas voluptates earum doloribus hic minima aliquid non deserunt officia ea quod dolore, incidunt perspiciatis rerum a quam. At, aspernatur consequuntur illum voluptate deleniti harum optio culpa nam fugiat, laborum rerum? Alias nemo minus reiciendis earum voluptas consectetur commodi consequatur et, quod ex. Omnis, suscipit.</p>

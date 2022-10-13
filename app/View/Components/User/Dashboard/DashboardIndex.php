@@ -10,6 +10,7 @@ use App\Models\Dpl;
 use App\Http\Controllers\DplController;
 use App\Models\DplCategory;
 use App\Models\User;
+use App\View\Components\User\Dashboard\Dpls\Show;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Support\Str;
 use App\View\Components\User\Dashboard\Dpls\Table;
@@ -20,6 +21,7 @@ class DashboardIndex extends Component
   public $subCompName = [
     'className' => 'foo',
     'componentNameForContent' => null, //set value ini jika ingin render view pakai dashboard
+    'data' => null,
   ];
   public Bool $isAsync = false;
   public $model = [
@@ -65,6 +67,9 @@ class DashboardIndex extends Component
       
       $htmlMin = new HtmlMin();
       $comp = new ("App\View\Components\User\Dashboard\\". Str::of($this->model['className'])->plural() ."\\" . $this->subCompName['className']);
+      try {
+        $comp->setData($this->subCompName['data']);
+      } catch (\Throwable $th) {}
       $view = $view = $htmlMin->minify($comp->render());
       return $view;
     }
@@ -73,6 +78,7 @@ class DashboardIndex extends Component
     // return $this->subCompName['componentNameForContent'];
     return view('components.user.dashboard.dashboard-index', [
       'componentName' =>  $this->subCompName['componentNameForContent'] ??  'components-user-dashboard-' . Str::of(strtolower($this->model['className']))->plural() . '-' .strtolower($this->subCompName['className']),
+      'data' => $this->subCompName['data'] ?? null,
     ]);
   }
 
@@ -82,10 +88,6 @@ class DashboardIndex extends Component
    */
   public function preRender(String $subCompName=null)
   {
-    // return var_dump(request()->ajax());
-    // return var_dump(Route::currentRouteName());
-    // return request()->route()->getName();
-    // return Request::getCurrentRoute()->getPath();
     //take the first word (model) of the $subCompName(ex: "dpls-index" menjadi "Dpl")
     $model = Str::of(ucfirst(explode("-", $subCompName)[0]))->singular(); // from model (settings-profile) menjadi (Settings), kemudian dari plural menjadi singular (Settings menjadi Setting)
     
@@ -95,19 +97,6 @@ class DashboardIndex extends Component
 
     $this->model['className'] = $model;
     $this->subCompName['className'] = $comp;
-
-
-    // SET $this->model['data'] = $data; hanya untuk retrive model database by $primary
-
-    // if ($modelPrimaryKey) {
-    //   try {
-    //     // prepare the string for getting findOrFile the $modelPrimary Key,
-    //     $eval = "App\Models\\" . $model . "::findOrFail('" . $modelPrimaryKey . "');";
-    //     $data = eval('return ' . $eval); // retrun sebuah Model berdasarkan primarykey nya
-        
-    //     $this->model['data'] = $data;
-    //   } catch (\Throwable $th) {}
-    // }
 
     // if (request()->ajax == true) {
     if (request()->ajax()) {

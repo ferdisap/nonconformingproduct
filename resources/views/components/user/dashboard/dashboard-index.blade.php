@@ -226,7 +226,7 @@
 
     <main class="d-flex flex-row justify-content-center">
       <div id="content" class="px-2" style="width: 100%">
-        <x-dynamic-component :component="$componentName" class="mt-4" />
+        <x-dynamic-component :component="$componentName" :data="$data" class="mt-4" />
         {{-- <x-components-user-dashboard-dpls-show/> --}}
       </div>
 

@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class Show extends Component
 {
+
+  public $data;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data = null)
     {
-        //
+      $this->data = $data;
     }
 
     /**
@@ -23,6 +26,12 @@ class Show extends Component
      */
     public function render()
     {
-        return view('components.user.dashboard.dpls.show');
+        return view('components.user.dashboard.dpls.show', [
+          'data' => $this->data,
+        ]);
+    }
+
+    public function setData($data){
+      $this->data = $data;
     }
 }

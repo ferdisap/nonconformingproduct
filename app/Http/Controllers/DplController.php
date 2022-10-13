@@ -7,6 +7,7 @@ use App\Models\Dpl;
 use App\View\Components\User\Dashboard\DashboardIndex;
 use App\View\Components\User\Dashboard\Dpls\Show;
 use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class DplController extends Controller
 {
@@ -55,6 +56,9 @@ class DplController extends Controller
    */
   public function show(Dpl $noDPL)
   {
+    // return $noDPL->creator_id == Auth::user()->id ? $noDPL : 'foo';
+    // return Auth::user()->id;
+    // return $noDPL->creator_id == Auth::user()->id ? 'foo' : 'bar';
     $view = new DashboardIndex();
     $view->model['className'] = $this->model;
 
@@ -62,16 +66,16 @@ class DplController extends Controller
       $view->isAsync = true;
       $this->compName = 'Show';
       $view->subCompName['className'] = $this->compName;
+      $view->subCompName['data'] = $noDPL->creator_id == Auth::user()->id ? $noDPL : abort(404);
       return $view->render();
     }
 
     $componentName = 'components-user-dashboard-dpls-show'; //will be render into dashboard content
     $view->subCompName['className'] = $this->compName;
     $view->subCompName['componentNameForContent'] = $componentName;
+    $view->subCompName['data'] = $noDPL->creator_id == Auth::user()->id ? $noDPL : abort(404);
     return $view->render();
-
-
-    // return view('components.dashboard.user.dpls.detail');
+    
   }
 
   /**
